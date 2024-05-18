@@ -44,3 +44,7 @@ BEGIN
 
 
 CREATE PROCEDURE 
+
+SET cliente_nome = REPLACE(cliente_nome, 'ã','a')
+
+-- TRIGGERS
