@@ -71,3 +71,56 @@ desc alunos;
 alter table alunos drop primary key;
 
 desc alunos;
+
+alter table alunos add constraint primary key(id_aluno);
+
+CREATE TABLE autores(
+	id_autor INT PRIMARY KEY,
+    nome_auto VARCHAR(100),
+    nacionalidade VARCHAR(30)
+);
+
+CREATE TABLE livros(
+	id_livro INT PRIMARY KEY,
+    titulo VARCHAR(30),
+    ano_publicacao DATE,
+    id_autor INT,
+    FOREIGN KEY (id_autor) REFERENCES autores(id_autor)
+);
+
+INSERT INTO autores VALUES
+("1", "autor1", "brasileiro"),
+("2", "autor2", "brasileiro"),
+("3", "autor3", "portugues"),
+("4", "autor4", "americano"),
+("5", "autor5", "americado"),
+("6", "autor6", "africano");
+
+SELECT * FROM AUTORES;
+
+CREATE TABLE autores2(
+	id_autor INT PRIMARY KEY,
+    nome_auto VARCHAR(100),
+    nacionalidade VARCHAR(30)
+);
+
+INSERT INTO autores2
+SELECT id_autor, nome_autor, nacionalidade FROM autores
+WHERE nacionalidade IN ("americano", "portugues");
+
+select * from autores2;
+
+truncate autores2;
+
+ALTER TABLE autores2 CHANGE COLUMN nome_auto nome_autor VARCHAR(100);
+
+desc autores;
+
+truncate autores2;
+
+INSERT INTO autores2
+SELECT id_autor, nome_autor, nacionalidade FROM autores
+WHERE nacionalidade LIKE "%A%";
+
+
+
