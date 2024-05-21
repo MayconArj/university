@@ -122,5 +122,16 @@ INSERT INTO autores2
 SELECT id_autor, nome_autor, nacionalidade FROM autores
 WHERE nacionalidade LIKE "%A%";
 
+select distinct nacionalidade from autores2;
 
+create table alunos(
+	id_aluno int primary key auto_increment,
+    nome_aluno varchar(100),
+    id_turma varchar(10)
+);
+
+create table turmas(
+	id_turma int primary key auto_increment,
+    nome_turma varchar(10)
+);
 
