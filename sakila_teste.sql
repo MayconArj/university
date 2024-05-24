@@ -61,3 +61,71 @@ from film AS f
 join film_category on f.film_id = film_category.film_id
 join category as c on c.category_id = film_category.category_id
 join language as l on l.language_id = f.language_id;
+
+show tables;
+
+select * from customer;
+select * from address;
+
+
+
+
+/*
+select <campo1>, <campo2>, <campon>
+from <tabela_esquerda>
+join <tabela_direita>
+on <chave_relação_tabela_esquerda> = <chave_relação_tabela_direita>
+*/
+
+select * from film;
+
+select first_name, last_name, phone
+from customer
+left join address
+on customer.address_id = address.address_id;
+
+select first_name, last_name, address
+from customer
+right join address
+on customer.address_id = address.address_id;
+
+select store.store_id, staff.first_name
+from store
+join staff
+on store.manager_staff_id = staff.staff_id;
+
+
+
+
+
+
+select * from film;
+select * from category;
+
+SELECT film.title, 
+(SELECT language.name
+FROM language
+WHERE film.language_id = language.language_id) AS name
+FROM film;
+
+/*
+select <campo1>, <campo2>, <campon>
+from <tabela_esquerda>
+join <tabela_direita>
+on <chave_relação_tabela_esquerda> = <chave_relação_tabela_direita>
+*/
+
+select film.title, category.name, language.name, actor.first_name
+from film
+join film_category
+on film.film_id = film_category.film_id
+join category
+on category.category_id = film_category.category_id
+join language
+on film.language_id = language.language_id
+join film_actor
+on film.film_id = film_actor.film_id
+join actor
+on film_actor.actor_id = actor.actor_id;
+
+
