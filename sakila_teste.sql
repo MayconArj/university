@@ -128,4 +128,30 @@ on film.film_id = film_actor.film_id
 join actor
 on film_actor.actor_id = actor.actor_id;
 
+SELECT f.title, c.name, l.name
+FROM film AS f
+JOIN film_category AS fc USING(film_id)
+JOIN category AS c USING(category_id)
+JOIN language AS l USING(language_id)
+WHERE c.name = "Comedy";
 
+SELECT c.country, COUNT(city)
+FROM city
+JOIN country AS c using(country_id)
+GROUP BY (c.country);
+
+-- ALTER JOIN
+select c.country, city.city
+from city
+left join country as c using(country_id)
+UNION
+select c.country, city.city
+from city
+right join country as c using(country_id);
+
+-- SUBQUERIES
+select rental_id, (select avg(amount) from payment)
+as avg_amount from payment;
+
+select * from payment;
+select sum(amount) from payment
