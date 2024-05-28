@@ -17,9 +17,14 @@ struct Caminho{
 	char texto[8*V];
 }caminho[V];
 
+#define qtdComb 24
 
+struct Caixeiro{
+	int combinacao[V+1];
+	float custo;
+}combCaxViaj[qtdComb];
 
-
+int posCx = 0;
 
 float vetorCusto[V];
 
@@ -150,17 +155,65 @@ void imprimirCaminhos(){
 }
 
 void caixeiro(int vInicio){
-
+	int i, k = 0, vetor[V-1];
+	// cria o vetor com os vertices diferentes vInicio
+	for(i = 0; i < V; i++){
+		if(i != vInicio){
+			vetor[k] = i;
+			k++;
+		}
+	}
+	// Vetor temporário para armazenar as combinações
+	int combinacao[V-1];
+	// Vetor para marcar os números já utilizados
+	int utilizados[V-1];
+	for (i = 0; i < V-1; i++){
+		utilizados[i] = 0;
+	}
+	// cria todas as combinações do vetor com números distintos
+	combinacoes(vetor, V-1, combinacao, 0, V-1, utilizados);
+	for(i=0; i < qtdComb; i++){
+		combCaxViaj[i].combinacao[0] = vInicio;
+		combCaxViaj[i].combinacao[V] = vInicio;
+	}
+	calcularPesos();
 }
 
+
 void combinacoes(int vetor[], int n, int combinacao[], 
-		int posicao, int k, int utilizados[]) {
-	
+		int posicao, int k, int utilizados[]) {		
 		
+		int i;
+		if (posicao == k){
+			// Quando a combinação é completa, transfere para a estrutura
+			for(i = 0; i < k; i++){
+				combCaxViaj[posCx].combinacao[i+1] = combinacao[i];
+			}
+			posCx++;
+			return;
+		}
+		// intervalo
+		for (i = 0; i < n; i++){
+			if(!utilizados[i]) { // Verifica se o número já foi utilizado
+				combinacao[posicao] = vetor[i];
+				utilizados[i] = 1; // Marca o número como utilizado
+				combinacoes(vetor, n, combinacao, posicao + 1, k, utilizados);
+				utilizados[i] = 0; // Desmarca o número para que passa ser utilizado
+									// em outra combinacao
+			}
+		}
 }
 
 void calcularPesos(){
-	
+	int i, j, k;
+	float soma;
+	for(i = 0; i < qtdComb; i++){
+		soma = 0;
+		for(j = 0; j < V; j++){
+			soma = soma + mAdj[combCaxViaj[i].combinacao[j]][combCaxViaj[i].combinacao[j+1]];
+		}
+		combCaxViaj[i].custo = soma;
+	}
 }
 
 void buscarMenorRota(){
@@ -169,11 +222,13 @@ void buscarMenorRota(){
 
 void imprimirCaixeiro(){
 	printf("\n\n======================= Caixeiro Viajante =========================\n");
-	
-	
-	
-	
-	
-	
+	int i, j, k;
+	for(i = 0; i < qtdComb; i++){
+		for(j = 0; j < V; j++){
+			printf("%d ", combCaxViaj[i].combinacao[j]);	
+		}
+		printf("%d\t%0.f\n",combCaxViaj[i].combinacao[j],
+		combCaxViaj[i].custo);
+	}
 	printf("\n\n===================================================================\n");	
 }
