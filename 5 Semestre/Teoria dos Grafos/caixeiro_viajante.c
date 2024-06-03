@@ -217,7 +217,19 @@ void calcularPesos(){
 }
 
 void buscarMenorRota(){
-	
+	int i, posicao;
+	float menor = 2903809129823;
+	for(i = 0; i < qtdComb; i++){
+		if(combCaxViaj[i].custo < menor){
+			menor = combCaxViaj[i].custo;
+			posicao = i;
+		}
+	}
+	printf("\n\nA menor Rota é : ");
+	for(i = 0; i < V+1; i++){
+		printf("%d ", combCaxViaj[posicao].combinacao[i]);
+	}
+	printf(" com custo: %0.f\n",combCaxViaj[posicao].custo);
 }
 
 void imprimirCaixeiro(){
