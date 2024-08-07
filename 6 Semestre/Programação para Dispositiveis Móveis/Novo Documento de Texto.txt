@@ -1,2 +1,12 @@
 https://estechead.com.br/biblioteca/
 https://drive.google.com/drive/folders/1bNaEAE1OhwMhW1hw3yiPfB7PZ3UgjbQ2
+https://drive.google.com/drive/folders/1pZPR0HrBGg_x0ZUfVZL760LN2uySb8nB (Power Platform)
+
+Sprite - elemento
+Spritesheet -> Conjunto de sprites
+
+Um sprite possui:
+- Atributos
+- Comportamentos (behavior). Ex, platform etc
+
+Construct (Site) - https://editor.construct.net/
